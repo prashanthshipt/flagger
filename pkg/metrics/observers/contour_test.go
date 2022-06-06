@@ -64,7 +64,7 @@ func TestContourObserver_GetRequestSuccessRate(t *testing.T) {
 	assert.Equal(t, float64(100), val)
 }
 
-func TestContourObserver_GetRequestSuccessRate_Service(t *testing.T) {
+func TestContourObserver_CustomService_GetRequestSuccessRate(t *testing.T) {
 	expected := ` sum( rate( envoy_cluster_upstream_rq{ envoy_cluster_name=~"default_podinfo-service-canary_[0-9a-zA-Z-]+", envoy_response_code!~"5.*" }[1m] ) ) / sum( rate( envoy_cluster_upstream_rq{ envoy_cluster_name=~"default_podinfo-service-canary_[0-9a-zA-Z-]+", }[1m] ) ) * 100`
 
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
