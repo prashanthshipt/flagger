@@ -134,7 +134,7 @@ func TestContourObserver_GetRequestDuration(t *testing.T) {
 	assert.Equal(t, 100*time.Millisecond, val)
 }
 
-func TestContourObserver_GetRequestDuration_Service(t *testing.T) {
+func TestContourObserver_CustomService_GetRequestDuration(t *testing.T) {
 	expected := ` histogram_quantile( 0.99, sum( rate( envoy_cluster_upstream_rq_time_bucket{ envoy_cluster_name=~"default_podinfo-service-canary_[0-9a-zA-Z-]+", }[1m] ) ) by (le) )`
 
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
